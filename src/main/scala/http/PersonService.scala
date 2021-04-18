@@ -16,7 +16,8 @@ case class PersonService(
     dbRunner: DatabaseRunner
 ) extends HttpService[IO] {
 
-  def routes: HttpRoutes[IO] = HttpRoutes.of[IO] { get |+| post }
+  def routes: HttpRoutes[IO] =
+    HttpRoutes.of[IO] { get |+| post |+| put |+| delete }
 
   def get: Handler = {
     case GET -> Root / IntVar(id) =>
@@ -36,5 +37,19 @@ case class PersonService(
         save = personRepository.save(p).runWith(dbRunner)
         rs <- Ok(save)
       } yield rs
+  }
+
+  def put: Handler = {
+    case body @ PUT -> Root =>
+      for {
+        p <- body.as[Person]
+        update = personRepository.update(p).runWith(dbRunner)
+        rs <- Ok(update)
+      } yield rs
+  }
+
+  def delete: Handler = {
+    case DELETE -> Root / IntVar(id) =>
+      personRepository.delete(id).runWith(dbRunner) >> Ok()
   }
 }
