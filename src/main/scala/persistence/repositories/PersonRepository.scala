@@ -20,4 +20,8 @@ class PersonRepository {
 
   def findBy(id: Int): DBIO[Option[Person]] = persons.filter(_.id === id).take(1).result.headOption
 
+  def update(person: Person): DBIO[Person] = persons.update(person) >> DBIO.successful(person)
+
+  def delete(id: Int): DBIO[Int] = persons.filter(_.id === id).delete
+
 }
