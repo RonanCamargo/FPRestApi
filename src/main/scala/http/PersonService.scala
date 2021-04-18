@@ -35,7 +35,7 @@ case class PersonService(
       for {
         p <- body.as[Person]
         save = personRepository.save(p).runWith(dbRunner)
-        rs <- Ok(save)
+        rs <- Created(save)
       } yield rs
   }
 
