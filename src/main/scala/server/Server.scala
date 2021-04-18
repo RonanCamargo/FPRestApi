@@ -22,7 +22,7 @@ object Server extends IOApp {
   private val h2Db: SetupInMemoryDatabase = SetupInMemoryDatabase(dbRunner)
 
   private val helloWorld: HttpService[IO] = HelloWorldService()
-  private val person: HttpService[IO] = PersonService(personRepository, dbRunner)
+  private val person: HttpService[IO] = PersonService(personRepository)(dbRunner)
 
   private val router: HttpApp[IO] = Router(
     "/hello" -> helloWorld.routes,

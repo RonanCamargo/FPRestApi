@@ -12,9 +12,9 @@ import persistence.runner.DatabaseRunner
 import persistence.runner.DatabaseRunner.DatabaseRunnerOps
 
 case class PersonService(
-    personRepository: PersonRepository,
-    dbRunner: DatabaseRunner
-) extends HttpService[IO] {
+    personRepository: PersonRepository
+)(implicit dbRunner: DatabaseRunner)
+    extends HttpService[IO] {
 
   def routes: HttpRoutes[IO] =
     HttpRoutes.of[IO] { get |+| post |+| put |+| delete }
@@ -23,7 +23,7 @@ case class PersonService(
     case GET -> Root / IntVar(id) =>
       personRepository
         .findBy(id)
-        .runWith(dbRunner)
+        .run
         .flatMap {
           case None => NotFound(s"Cannot find a person with id: $id")
           case p    => Ok(p.get)
@@ -34,7 +34,7 @@ case class PersonService(
     case body @ POST -> Root =>
       for {
         p <- body.as[Person]
-        save = personRepository.save(p).runWith(dbRunner)
+        save = personRepository.save(p).run
         rs <- Created(save)
       } yield rs
   }
@@ -43,13 +43,13 @@ case class PersonService(
     case body @ PUT -> Root =>
       for {
         p <- body.as[Person]
-        update = personRepository.update(p).runWith(dbRunner)
+        update = personRepository.update(p).run
         rs <- Ok(update)
       } yield rs
   }
 
   def delete: Handler = {
     case DELETE -> Root / IntVar(id) =>
-      personRepository.delete(id).runWith(dbRunner) >> Ok()
+      personRepository.delete(id).run >> Ok()
   }
 }
