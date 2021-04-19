@@ -10,6 +10,8 @@ import persistence.entities.Person
 import persistence.repositories.PersonRepository
 import persistence.runner.DatabaseRunner
 import persistence.runner.DatabaseRunner.DatabaseRunnerOps
+import monocle.syntax.all._
+import cats.syntax.option._
 
 case class PersonService(
     personRepository: PersonRepository
@@ -40,10 +42,10 @@ case class PersonService(
   }
 
   def put: Handler = {
-    case body @ PUT -> Root =>
+    case body @ PUT -> Root / IntVar(id) =>
       for {
         p <- body.as[Person]
-        update = personRepository.update(p).run
+        update = personRepository.update(p.focus(_.id).replace(id.some)).run
         rs <- Ok(update)
       } yield rs
   }
