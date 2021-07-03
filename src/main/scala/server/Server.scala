@@ -3,9 +3,9 @@ package server
 import cats.effect.{ExitCode, IO, IOApp}
 import http.{HelloWorldService, HttpService, PersonService}
 import org.http4s.HttpApp
+import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.implicits._
 import org.http4s.server.Router
-import org.http4s.server.blaze._
 import persistence.repositories.PersonRepository
 import persistence.runner.DatabaseRunner
 import persistence.setup.SetupInMemoryDatabase

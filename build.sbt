@@ -1,8 +1,8 @@
 name := "FunctionalRestApi"
 version := "0.1"
-scalaVersion := "2.13.5"
+scalaVersion := "2.13.6"
 
-val http4sVersion = "1.0.0-M16"
+val http4sVersion = "0.23.0-RC1"
 val circeVersion = "0.14.0-M3"
 val monocleVersion = "3.0.0-M4"
 val slickVersion = "3.3.3"
