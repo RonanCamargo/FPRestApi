@@ -27,8 +27,8 @@ case class PersonService(
         .findBy(id)
         .run
         .flatMap {
-          case None => NotFound(s"Cannot find a person with id: $id")
-          case p    => Ok(p.get)
+          case Some(person) => Ok(person)
+          case None         => NotFound(s"Cannot find a person with id: $id")
         }
   }
 
