@@ -1,6 +1,6 @@
 package http
 
-import cats.kernel.Semigroup
+import cats.Semigroup
 import org.http4s.{HttpRoutes, Request, Response}
 
 trait HttpService[F[_]] {

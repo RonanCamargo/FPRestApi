@@ -1,17 +1,17 @@
 package http
 
 import cats.effect.IO
+import cats.syntax.option._
 import cats.syntax.semigroup._
-import org.http4s.HttpRoutes
-import org.http4s.dsl.io._
 import io.circe.generic.auto._
+import monocle.syntax.all._
+import org.http4s.HttpRoutes
 import org.http4s.circe.CirceEntityCodec._
+import org.http4s.dsl.io._
 import persistence.entities.Person
 import persistence.repositories.PersonRepository
 import persistence.runner.DatabaseRunner
 import persistence.runner.DatabaseRunner.DatabaseRunnerOps
-import monocle.syntax.all._
-import cats.syntax.option._
 
 case class PersonService(
     personRepository: PersonRepository

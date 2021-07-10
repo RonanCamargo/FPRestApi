@@ -29,8 +29,8 @@ object Server extends IOApp {
     "/persons" -> person.routes
   ).orNotFound
 
-  def run(args: List[String]): IO[ExitCode] = {
-    h2Db.setup >>
+  def run(args: List[String]): IO[ExitCode] =
+    h2Db.setup *>
       BlazeServerBuilder[IO](executionContext)
         .bindHttp(8080, "localhost")
         .withHttpApp(router)
@@ -38,5 +38,4 @@ object Server extends IOApp {
         .compile
         .drain
         .as(ExitCode.Success)
-  }
 }
