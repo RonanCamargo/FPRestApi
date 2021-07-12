@@ -1,4 +1,4 @@
-package http
+package presentation.controllers
 
 import cats.Semigroup
 import org.http4s.{HttpRoutes, Request, Response}

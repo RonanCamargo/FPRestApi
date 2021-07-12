@@ -1,4 +1,4 @@
-package http
+package presentation.controllers
 
 import cats.effect.IO
 import org.http4s.HttpRoutes

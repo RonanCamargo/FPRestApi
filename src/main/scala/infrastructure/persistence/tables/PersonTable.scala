@@ -1,16 +1,16 @@
-package persistence.tables
+package infrastructure.persistence.tables
 
-import persistence.entities.Person
+import infrastructure.persistence.entities.PersonRow
 import slick.jdbc.H2Profile.api._
 import slick.lifted.ProvenShape
 
-class PersonTable(tag: Tag) extends Table[Person](tag, "PERSONS"){
+class PersonTable(tag: Tag) extends Table[PersonRow](tag, "PERSONS"){
 
   def id: Rep[Option[Int]] = column[Option[Int]]("ID", O.AutoInc, O.PrimaryKey)
   def name: Rep[String] = column[String]("NAME")
   def age: Rep[Int] = column[Int]("AGE")
 
-  def * : ProvenShape[Person] = (id, name, age) <> (Person.tupled, Person.unapply)
+  def * : ProvenShape[PersonRow] = (id, name, age) <> (PersonRow.tupled, PersonRow.unapply)
 }
 
 object PersonTable {

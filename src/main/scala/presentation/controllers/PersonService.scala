@@ -1,4 +1,4 @@
-package http
+package presentation.controllers
 
 import cats.effect.IO
 import cats.syntax.option._
@@ -8,10 +8,10 @@ import monocle.syntax.all._
 import org.http4s.HttpRoutes
 import org.http4s.circe.CirceEntityCodec._
 import org.http4s.dsl.io._
-import persistence.entities.Person
-import persistence.repositories.PersonRepository
-import persistence.runner.DatabaseRunner
-import persistence.runner.DatabaseRunner.DatabaseRunnerOps
+import infrastructure.persistence.entities.PersonRow
+import infrastructure.persistence.repositories.PersonRepository
+import infrastructure.persistence.runner.DatabaseRunner
+import infrastructure.persistence.runner.DatabaseRunner.DatabaseRunnerOps
 
 case class PersonService(
     personRepository: PersonRepository
@@ -24,7 +24,7 @@ case class PersonService(
   def get: Handler = {
     case GET -> Root / IntVar(id) =>
       personRepository
-        .findBy(id)
+        .find(id)
         .run
         .flatMap {
           case Some(person) => Ok(person)
@@ -35,7 +35,7 @@ case class PersonService(
   def post: Handler = {
     case body @ POST -> Root =>
       for {
-        p <- body.as[Person]
+        p <- body.as[PersonRow]
         save = personRepository.save(p).run
         rs <- Created(save)
       } yield rs
@@ -44,7 +44,7 @@ case class PersonService(
   def put: Handler = {
     case body @ PUT -> Root / IntVar(id) =>
       for {
-        p <- body.as[Person]
+        p <- body.as[PersonRow]
         update = personRepository.update(p.focus(_.id).replace(id.some)).run
         rs <- Ok(update)
       } yield rs

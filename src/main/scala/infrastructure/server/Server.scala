@@ -1,20 +1,20 @@
-package server
+package infrastructure.server
 
 import cats.effect.{ExitCode, IO, IOApp}
-import http.{HelloWorldService, HttpService, PersonService}
+import presentation.controllers.{HelloWorldService, HttpService, PersonService}
 import org.http4s.HttpApp
 import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.implicits.http4sKleisliResponseSyntaxOptionT
 import org.http4s.server.Router
-import persistence.repositories.PersonRepository
-import persistence.runner.DatabaseRunner
-import persistence.setup.SetupInMemoryDatabase
+import infrastructure.persistence.repositories.PersonRepository
+import infrastructure.persistence.runner.DatabaseRunner
+import infrastructure.persistence.setup.SetupInMemoryDatabase
 
 import scala.concurrent.ExecutionContext
 
 object Server extends IOApp {
 
-  private val ExContext = ExecutionContext.global
+  private implicit val ExContext: ExecutionContext = ExecutionContext.global
 
   private val PersonRepository = new PersonRepository()
   private val DbRunner: DatabaseRunner = DatabaseRunner()

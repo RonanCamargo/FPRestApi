@@ -1,4 +1,4 @@
-package persistence.runner
+package infrastructure.persistence.runner
 
 import cats.effect.IO
 import slick.dbio.DBIO
