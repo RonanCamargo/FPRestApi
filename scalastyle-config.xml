@@ -225,14 +225,14 @@
   <check class="org.scalastyle.scalariform.DeprecatedJavaChecker" level="warning" enabled="true" />
   <check class="org.scalastyle.scalariform.OverrideJavaChecker" level="warning" enabled="true" />
   <check class="org.scalastyle.scalariform.EmptyClassChecker" level="warning" enabled="true" />
-  <check class="org.scalastyle.scalariform.ClassTypeParameterChecker" level="warning" enabled="true">
+  <check class="org.scalastyle.scalariform.ClassTypeParameterChecker" level="warning" enabled="false">
     <parameters>
       <parameter name="regex">
         <![CDATA[^[A-Z_]$]]>
       </parameter>
     </parameters>
   </check>
-  <check class="org.scalastyle.scalariform.UnderscoreImportChecker" level="warning" enabled="true" />
+  <check class="org.scalastyle.scalariform.UnderscoreImportChecker" level="warning" enabled="false" />
   <check class="org.scalastyle.scalariform.LowercasePatternMatchChecker" level="warning" enabled="true" />
   <check class="org.scalastyle.scalariform.EmptyInterpolatedStringChecker" level="warning" enabled="true" />
   <check class="org.scalastyle.scalariform.MultipleStringLiteralsChecker" level="warning" enabled="true">

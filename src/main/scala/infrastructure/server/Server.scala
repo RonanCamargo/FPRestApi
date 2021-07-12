@@ -32,7 +32,7 @@ object Server extends IOApp {
   def run(args: List[String]): IO[ExitCode] =
     InMemoryDB.setup *>
       BlazeServerBuilder[IO](ExContext)
-        .bindHttp(8080, "localhost")
+        .bindHttp(port = 8080, host = "localhost")
         .withHttpApp(ServiceRouter)
         .serve
         .compile
