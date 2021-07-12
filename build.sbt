@@ -12,6 +12,7 @@ libraryDependencies ++= databaseDependencies
 libraryDependencies ++= http4sDependencies
 libraryDependencies ++= circeDependencies
 libraryDependencies ++= monocleDependencies
+libraryDependencies ++= testDependencies
 
 lazy val databaseDependencies = Seq(
   "com.typesafe.slick" %% "slick" % slickVersion,
@@ -34,6 +35,11 @@ lazy val circeDependencies = Seq(
 lazy val monocleDependencies = Seq(
   "com.github.julien-truffaut" %% "monocle-core" % monocleVersion,
   "com.github.julien-truffaut" %% "monocle-macro" % monocleVersion // only for Scala 2.13
+)
+
+lazy val testDependencies = Seq(
+  "org.scalamock" %% "scalamock" % "5.1.0" % Test,
+  "org.scalatest" %% "scalatest" % "3.1.0" % Test
 )
 
 //libraryDependencies += "org.typelevel" %% "cats-laws" % "2.5.0" % Test
