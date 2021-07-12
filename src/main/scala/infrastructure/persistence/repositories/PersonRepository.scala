@@ -14,7 +14,7 @@ class PersonRepository(implicit executionContext: ExecutionContext)
   private lazy val persons = PersonTable.table
 
   private def saveAndGetId(person: PersonRow): DBIO[Int] =
-    (persons returning persons.map(_.id.get)) += person
+    (persons returning persons.map(_.id)) += person
 
   def save(
       person: PersonRow
