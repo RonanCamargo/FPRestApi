@@ -1,7 +1,7 @@
 package infrastructure.server
 
 import cats.effect.{ExitCode, IO, IOApp}
-import presentation.controllers.{HelloWorldService, HttpService, PersonService}
+import presentation.controllers.{HelloWorldController, HttpController, PersonController}
 import org.http4s.HttpApp
 import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.implicits.http4sKleisliResponseSyntaxOptionT
@@ -21,8 +21,8 @@ object Server extends IOApp {
 
   private val InMemoryDB: SetupInMemoryDatabase = SetupInMemoryDatabase(DbRunner)
 
-  private val HelloWorld: HttpService[IO] = HelloWorldService()
-  private val Person: HttpService[IO] = PersonService(PersonRepository)(DbRunner)
+  private val HelloWorld: HttpController[IO] = HelloWorldController()
+  private val Person: HttpController[IO] = PersonController(PersonRepository)(DbRunner)
 
   private val ServiceRouter: HttpApp[IO] = Router(
     "/hello" -> HelloWorld.routes,

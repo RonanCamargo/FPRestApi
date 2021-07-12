@@ -3,7 +3,7 @@ package presentation.controllers
 import cats.Semigroup
 import org.http4s.{HttpRoutes, Request, Response}
 
-trait HttpService[F[_]] {
+trait HttpController[F[_]] {
 
   type Handler = PartialFunction[Request[F], F[Response[F]]]
   implicit val handlerSemigroup: Semigroup[Handler] =

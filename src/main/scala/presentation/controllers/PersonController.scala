@@ -13,10 +13,10 @@ import infrastructure.persistence.repositories.PersonRepository
 import infrastructure.persistence.runner.DatabaseRunner
 import infrastructure.persistence.runner.DatabaseRunner.DatabaseRunnerOps
 
-case class PersonService(
+case class PersonController(
     personRepository: PersonRepository
 )(implicit dbRunner: DatabaseRunner)
-    extends HttpService[IO] {
+    extends HttpController[IO] {
 
   def routes: HttpRoutes[IO] =
     HttpRoutes.of[IO] { get |+| post |+| put |+| delete }
@@ -52,6 +52,6 @@ case class PersonService(
 
   def delete: Handler = {
     case DELETE -> Root / IntVar(id) =>
-      personRepository.delete(id).run >> Ok()
+      personRepository.delete(id).run *> Ok()
   }
 }

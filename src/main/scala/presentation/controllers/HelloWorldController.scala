@@ -4,7 +4,7 @@ import cats.effect.IO
 import org.http4s.HttpRoutes
 import org.http4s.dsl.io._
 
-case class HelloWorldService() extends HttpService[IO] {
+case class HelloWorldController() extends HttpController[IO] {
 
   def routes: HttpRoutes[IO] =
     HttpRoutes.of[IO] {
