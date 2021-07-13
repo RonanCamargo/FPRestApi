@@ -297,7 +297,7 @@
       </parameter>
     </parameters>
   </check>
-  <check class="org.scalastyle.scalariform.NamedArgumentChecker" level="warning" enabled="true">
+  <check class="org.scalastyle.scalariform.NamedArgumentChecker" level="warning" enabled="false">
     <parameters>
       <parameter name="checkString">
         <![CDATA[false]]>
