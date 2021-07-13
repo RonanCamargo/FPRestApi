@@ -4,10 +4,10 @@ import cats.effect.IO
 import slick.dbio.DBIO
 import slick.jdbc.JdbcBackend.Database
 
-case class DatabaseRunner() {
-  private lazy val db = Database.forConfig("h2mem1")
+case class DatabaseRunner(db: Database) {
 
   def run[A](dbio: DBIO[A]): IO[A] = {
+
     IO.fromFuture { IO(db.run(dbio)) }
       .attempt
       .flatMap {

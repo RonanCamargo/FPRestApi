@@ -8,7 +8,7 @@ import slick.jdbc.H2Profile.api._
 import cats.syntax.option._
 import scala.concurrent.ExecutionContext
 
-case class PersonRepository(implicit executionContext: ExecutionContext)
+case class PersonRepository()(implicit executionContext: ExecutionContext)
     extends FPersonRepository[DBIO, Int, PersonRow] {
 
   private lazy val persons = PersonTable.table
