@@ -44,7 +44,7 @@
   <check class="org.scalastyle.file.FileLineLengthChecker" level="warning" enabled="true">
     <parameters>
       <parameter name="maxLineLength">
-        <![CDATA[160]]>
+        <![CDATA[80]]>
       </parameter>
       <parameter name="tabSize">
         <![CDATA[4]]>
