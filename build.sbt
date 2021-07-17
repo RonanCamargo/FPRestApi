@@ -1,12 +1,12 @@
-name := "FunctionalRestApi"
+name := "fp-rest-api"
 version := "0.1"
 scalaVersion := "2.13.6"
 
-val http4sVersion = "0.23.0-RC1"
-val circeVersion = "0.14.0-M3"
+val http4sVersion  = "0.23.0-RC1"
+val circeVersion   = "0.14.1"
 val monocleVersion = "3.0.0-M4"
-val slickVersion = "3.3.3"
-val h2Version = "1.4.200"
+val slickVersion   = "3.3.3"
+val h2Version      = "1.4.200"
 
 libraryDependencies ++= databaseDependencies
 libraryDependencies ++= http4sDependencies
@@ -15,25 +15,26 @@ libraryDependencies ++= monocleDependencies
 libraryDependencies ++= testDependencies
 
 lazy val databaseDependencies = Seq(
-  "com.typesafe.slick" %% "slick" % slickVersion,
+  "com.typesafe.slick" %% "slick"         % slickVersion,
   "com.typesafe.slick" %% "slick-testkit" % slickVersion % Test,
-  "com.h2database" % "h2" % h2Version // % Test
+  "com.h2database"      % "h2"            % h2Version // % Test
 )
 
 lazy val http4sDependencies = Seq(
-  "org.http4s" %% "http4s-dsl" % http4sVersion,
+  "org.http4s" %% "http4s-dsl"          % http4sVersion,
   "org.http4s" %% "http4s-blaze-server" % http4sVersion,
   "org.http4s" %% "http4s-blaze-client" % http4sVersion
 )
 
 lazy val circeDependencies = Seq(
-  "org.http4s" %% "http4s-circe" % http4sVersion,
-  "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-literal" % circeVersion
+  "org.http4s" %% "http4s-circe"         % http4sVersion,
+  "io.circe"   %% "circe-generic"        % circeVersion,
+  "io.circe"   %% "circe-generic-extras" % circeVersion,
+  "io.circe"   %% "circe-literal"        % circeVersion
 )
 
 lazy val monocleDependencies = Seq(
-  "com.github.julien-truffaut" %% "monocle-core" % monocleVersion,
+  "com.github.julien-truffaut" %% "monocle-core"  % monocleVersion,
   "com.github.julien-truffaut" %% "monocle-macro" % monocleVersion // only for Scala 2.13
 )
 

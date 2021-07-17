@@ -3,15 +3,15 @@ package presentation.controllers
 import cats.effect.IO
 import cats.syntax.option._
 import cats.syntax.semigroup._
-import io.circe.generic.auto._
-import monocle.syntax.all._
-import org.http4s.HttpRoutes
-import org.http4s.circe.CirceEntityCodec._
-import org.http4s.dsl.io._
+import infrastructure.json.entities.PersonCodec._
 import infrastructure.persistence.entities.PersonRow
 import infrastructure.persistence.repositories.PersonRepository
 import infrastructure.persistence.runner.DatabaseRunner
 import infrastructure.persistence.runner.DatabaseRunner.DatabaseRunnerOps
+import monocle.syntax.all._
+import org.http4s.HttpRoutes
+import org.http4s.circe.CirceEntityCodec._
+import org.http4s.dsl.io._
 
 case class PersonController(
     personRepository: PersonRepository

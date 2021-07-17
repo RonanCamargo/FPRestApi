@@ -18,7 +18,8 @@ object Server extends IOApp {
   private implicit val ExContext: ExecutionContext = ExecutionContext.global
 
   private val PersonRepository = new PersonRepository()
-  private val DbRunner: DatabaseRunner = DatabaseRunner(Database.forConfig("h2mem1"))
+  private val db = Database.forConfig("h2mem1")
+  private val DbRunner: DatabaseRunner = DatabaseRunner(db)
 
   private val InMemoryDB: SetupInMemoryDatabase = SetupInMemoryDatabase(DbRunner)
 
@@ -31,7 +32,7 @@ object Server extends IOApp {
   ).orNotFound
 
   def run(args: List[String]): IO[ExitCode] =
-    InMemoryDB.setup *>
+    InMemoryDB.setup.onCancel(closeDbConnection(db)) *>
       BlazeServerBuilder[IO](ExContext)
         .bindHttp(port = 8080, host = "localhost")
         .withHttpApp(ServiceRouter)
@@ -39,4 +40,6 @@ object Server extends IOApp {
         .compile
         .drain
         .as(ExitCode.Success)
+
+  private def closeDbConnection(db: Database): IO[Unit] = IO(db.close())
 }
