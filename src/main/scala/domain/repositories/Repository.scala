@@ -7,6 +7,8 @@ package domain.repositories
   */
 trait Repository[F[_], Id, E] {
 
+  def findAll: F[Seq[E]]
+
   def find(id: Id): F[Option[E]]
 
   def save(entity: E): F[E]

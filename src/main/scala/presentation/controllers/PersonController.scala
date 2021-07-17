@@ -7,7 +7,7 @@ import infrastructure.json.entities.PersonCodec._
 import infrastructure.persistence.entities.PersonRow
 import infrastructure.persistence.repositories.PersonRepository
 import infrastructure.persistence.runner.DatabaseRunner
-import infrastructure.persistence.runner.DatabaseRunner.DatabaseRunnerOps
+import infrastructure.persistence.runner.DatabaseRunner._
 import monocle.syntax.all._
 import org.http4s.HttpRoutes
 import org.http4s.circe.CirceEntityCodec._
@@ -22,6 +22,9 @@ case class PersonController(
     HttpRoutes.of[IO] { get |+| post |+| put |+| delete }
 
   def get: Handler = {
+    case GET -> Root =>
+      personRepository.findAll.stream.compile.toList.flatMap(Ok(_))
+
     case GET -> Root / IntVar(id) =>
       personRepository
         .find(id)

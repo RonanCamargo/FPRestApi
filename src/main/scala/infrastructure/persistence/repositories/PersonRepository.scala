@@ -19,6 +19,8 @@ case class PersonRepository()(implicit executionContext: ExecutionContext)
   def find(id: Int): DBIO[Option[PersonRow]] =
     filterById(id).take(num = 1).result.headOption
 
+  def findAll: DBIO[Seq[PersonRow]] = persons.result
+
   def update(person: PersonRow): DBIO[Int] = persons.update(person)
 
   def delete(id: Int): DBIO[Int] = filterById(id).delete
