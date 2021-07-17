@@ -18,7 +18,7 @@ object Server extends IOApp {
   private implicit val ExContext: ExecutionContext = ExecutionContext.global
 
   private val PersonRepository = new PersonRepository()
-  private val db = Database.forConfig("h2mem1")
+  private val db = Database.forConfig("h2mem")
   private val DbRunner: DatabaseRunner = DatabaseRunner(db)
 
   private val InMemoryDB: SetupInMemoryDatabase = SetupInMemoryDatabase(DbRunner)
